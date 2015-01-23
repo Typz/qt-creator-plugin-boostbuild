@@ -15,6 +15,7 @@
 
 // Qt Creator
 #include <coreplugin/basefilewizard.h>
+#include <coreplugin/basefilewizardfactory.h>
 #include <coreplugin/generatedfile.h>
 #include <utils/wizard.h>
 // Qt
@@ -47,7 +48,7 @@ class FilesSelectionWizardPage;
 // - extra values QVariantMap may carry custom data
 // CAUTION: This wizard may stop building or start failing in run-time,
 // if Qt Creator changes the base class significantly.
-class OpenProjectWizard : public Core::BaseFileWizard
+class OpenProjectWizard : public Core::BaseFileWizardFactory
 {
     Q_OBJECT
 
@@ -60,8 +61,8 @@ public:
 
 protected:
 
-    QWizard*
-    createWizardDialog(QWidget* parent
+	Core::BaseFileWizard*
+	create(QWidget* parent
         , Core::WizardDialogParameters const& parameters) const;
 
     Core::GeneratedFiles
@@ -78,7 +79,7 @@ private:
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////
-class OpenProjectWizardDialog : public Utils::Wizard
+class OpenProjectWizardDialog : public Core::BaseFileWizard
 {
     Q_OBJECT
 
