@@ -294,13 +294,10 @@ void Project::refresh()
     CppTools::CppModelManager *modelmanager =
         CppTools::CppModelManager::instance();
     if (modelmanager) {
-        CppTools::ProjectInfo pinfo = modelmanager->projectInfo(this);
-        pinfo.clearProjectParts();
+        CppTools::ProjectInfo pinfo(this);
 
         CppTools::ProjectPartBuilder builder(pinfo);
-        builder.setDisplayName(displayName());
-        builder.setProjectFile(projectFilePath().toString());
-        //builder.setDefines();	// TODO: waiting for Jamfile parser
+        //builder.setDefines(); // TODO: waiting for Jamfile parser
         builder.setIncludePaths(QStringList() << projectDirectory().toString() << includePaths);
 
         const QList<Core::Id> languages = builder.createProjectPartsForFiles(files_);
